@@ -23,7 +23,9 @@ public class BioClientHandler implements Runnable {
 
     @Override
     public void run() {
-        try (InputStream in = socket.getInputStream()) {
+        try (
+                InputStream in = socket.getInputStream()
+        ) {
             InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
             String msg;

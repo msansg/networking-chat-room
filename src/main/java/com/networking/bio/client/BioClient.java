@@ -1,8 +1,10 @@
 package com.networking.bio.client;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -45,8 +47,10 @@ public class BioClient {
      * 客户端启动方法
      */
     private void start() {
-        try (OutputStream ops = socket.getOutputStream();
-             Scanner scanner = new Scanner(System.in)) {
+        try (
+                Scanner scanner = new Scanner(System.in);
+                OutputStream ops = socket.getOutputStream()
+        ) {
             /**
              * 启动读取服务端发送过来消息的线程
              */

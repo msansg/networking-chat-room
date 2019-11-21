@@ -34,13 +34,13 @@ public class BioServerHandler implements Runnable {
     @Override
     public void run() {
         PrintWriter pw = null;
-        try {
-            InputStream in = socket.getInputStream();
-            InputStreamReader isr = new InputStreamReader(in, UTF_8);
-            BufferedReader br = new BufferedReader(isr);
-
-            OutputStream out = socket.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(out, UTF_8);
+        try (
+                InputStream in = socket.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in, UTF_8);
+                BufferedReader br = new BufferedReader(isr);
+                OutputStream out = socket.getOutputStream();
+                OutputStreamWriter osw = new OutputStreamWriter(out, UTF_8);
+        ) {
             pw = new PrintWriter(osw, true);
 
             synchronized (this) {
