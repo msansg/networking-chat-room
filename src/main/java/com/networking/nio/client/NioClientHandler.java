@@ -1,4 +1,4 @@
-package com.nio.client;
+package com.networking.nio.client;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
