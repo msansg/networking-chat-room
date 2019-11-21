@@ -5,8 +5,9 @@ import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Created on 2019/11/18 12:31
@@ -54,7 +55,7 @@ public class NioClient {
         while (scanner.hasNextLine()) {
             String request = scanner.nextLine();
             if (request != null && request.length() > 0) {
-                socketChannel.write(StandardCharsets.UTF_8.encode(nickname + ": " + request));
+                socketChannel.write(UTF_8.encode(nickname + ": " + request));
             }
         }
     }

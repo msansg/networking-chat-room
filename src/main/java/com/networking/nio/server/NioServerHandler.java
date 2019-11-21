@@ -3,9 +3,10 @@ package com.networking.nio.server;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Created on 2019/11/18 14:09
@@ -112,7 +113,7 @@ public class NioServerHandler implements Runnable {
         /**
          * 回复客户端提示信息
          */
-        socketChannel.write(StandardCharsets.UTF_8.encode("你与聊天室里其他人都不是好友关系，请注意隐私安全"));
+        socketChannel.write(UTF_8.encode("你与聊天室里其他人都不是好友关系，请注意隐私安全"));
     }
 
     /**
@@ -146,7 +147,7 @@ public class NioServerHandler implements Runnable {
             /**
              * 读取byteBuffer
              */
-            stringBuilder.append(StandardCharsets.UTF_8.decode(byteBuffer));
+            stringBuilder.append(UTF_8.decode(byteBuffer));
         }
         /**
          * 将channel再次注册到selector上，监听他的可读事件
@@ -176,7 +177,7 @@ public class NioServerHandler implements Runnable {
             if (targetChannel instanceof SocketChannel && targetChannel != sourceChannel) {
                 try {
                     // 将信息发送刚到targetChannel客户端
-                    ((SocketChannel) targetChannel).write(StandardCharsets.UTF_8.encode(request));
+                    ((SocketChannel) targetChannel).write(UTF_8.encode(request));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

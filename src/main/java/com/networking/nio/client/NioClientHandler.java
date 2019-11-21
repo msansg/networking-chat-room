@@ -5,9 +5,10 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Created on 2019/11/18 13:39
@@ -103,7 +104,7 @@ public class NioClientHandler implements Runnable {
             /**
              * 读取byteBuffer
              */
-            stringBuilder.append(StandardCharsets.UTF_8.decode(byteBuffer));
+            stringBuilder.append(UTF_8.decode(byteBuffer));
         }
         /**
          * 将channel再次注册到selector上，监听他的可读事件
