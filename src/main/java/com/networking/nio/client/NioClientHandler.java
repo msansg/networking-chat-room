@@ -1,5 +1,7 @@
 package com.networking.nio.client;
 
+import com.networking.util.IOUtils;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -64,11 +66,7 @@ public class NioClientHandler implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                selector.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            IOUtils.close(selector);
         }
     }
 

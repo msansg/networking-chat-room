@@ -1,5 +1,7 @@
 package com.networking.nio.server;
 
+import com.networking.util.IOUtils;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
@@ -78,16 +80,7 @@ public class NioServerHandler implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
-                selector.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                serverSocketChannel.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            IOUtils.close(serverSocketChannel, selector);
         }
     }
 
