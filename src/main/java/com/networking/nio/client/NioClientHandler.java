@@ -102,9 +102,16 @@ public class NioClientHandler implements Runnable {
             byteBuffer.flip();
 
             /**
-             * 读取byteBuffer
+             * 仍有数据时读取byteBuffer
              */
-            stringBuilder.append(UTF_8.decode(byteBuffer));
+            while (byteBuffer.hasRemaining()) {
+                stringBuilder.append(UTF_8.decode(byteBuffer));
+            }
+
+            /**
+             * 切换byteBuffer为写模式
+             */
+            byteBuffer.clear();
         }
         /**
          * 将channel再次注册到selector上，监听他的可读事件
