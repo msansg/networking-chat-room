@@ -17,6 +17,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class NioClient {
 
+    private static final int PORT = 1877;
+
+    private static final String SERVER_HOST = "127.0.0.1";
+
     /**
      * 启动
      */
@@ -27,10 +31,9 @@ public class NioClient {
         Selector selector = Selector.open();
 
         /**
-         * 2. 连接服务器端
+         * 2. 创建一个socketChannel
          */
-        SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 8000));
-        System.out.println("连接服务器成功！");
+        SocketChannel socketChannel = SocketChannel.open();
 
         /**
          * 3. **设置channel为非阻塞模式**
@@ -38,12 +41,17 @@ public class NioClient {
         socketChannel.configureBlocking(false);
 
         /**
-         * 4. 将channel注册到selector上，监听可读事件
+         * 4. 将channel注册到selector上，监听连接事件
          */
-        socketChannel.register(selector, SelectionKey.OP_READ);
+        socketChannel.register(selector, SelectionKey.OP_CONNECT);
 
         /**
-         * 5. 处理服务端的响应
+         * 5. 连接服务器
+         */
+        socketChannel.connect(new InetSocketAddress(SERVER_HOST, PORT));
+
+        /**
+         * 6. 处理服务端的响应
          * 新开一个线程，专门等待和处理服务端的响应
          */
         new Thread(new NioClientHandler(selector)).start();

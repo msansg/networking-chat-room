@@ -14,6 +14,8 @@ import java.nio.channels.ServerSocketChannel;
  */
 public class NioServer {
 
+    private static final int PORT = 1877;
+
     /**
      * 启动
      */
@@ -31,7 +33,7 @@ public class NioServer {
         /**
          * 3. 为channel绑定监听端口
          */
-        serverSocketChannel.bind(new InetSocketAddress(8000));
+        serverSocketChannel.bind(new InetSocketAddress(PORT));
 
         /**
          * 4. **设置channel为非阻塞模式**
@@ -42,13 +44,13 @@ public class NioServer {
          * 5. 将channel注册到selector上，监听连接事件
          */
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        System.out.println("服务器启动完成！");
+        System.out.println("服务器启动完成！端口：" + PORT + "...");
 
         /**
          * 6. 处理新接入的连接
          * 新开一个线程，专门等待和处理新接入的连接
          */
-        new Thread(new NioServerHandler(selector, serverSocketChannel)).start();
+        new Thread(new NioServerHandler(selector)).start();
     }
 
     /**
