@@ -125,7 +125,7 @@ public class NioServerHandler implements Runnable {
         /**
          * 存储请求数据
          */
-        StringBuilder stringBuilder = new StringBuilder(1024);
+        StringBuilder stringBuilder = new StringBuilder();
 
         /**
          * 循环读取客户端的请求信息
